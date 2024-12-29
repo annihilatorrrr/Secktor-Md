@@ -90,7 +90,7 @@ cmd(
         category: 'group',
         filename: __filename,
     },
-    async (Void, citel, text, { isAdmin, isBotAdmin }) => {
+    async (Void, citel, text) => {
         if (!citel.isGroup) return citel.reply(tlang().group);
 
         const groupAdmins = await getAdmin(Void, citel);
