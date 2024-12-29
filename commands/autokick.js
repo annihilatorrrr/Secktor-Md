@@ -14,7 +14,7 @@ cmd(
         const groupAdmins = await getAdmin(Void, citel);
         const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
         const botNumber = await Void.decodeJid(Void.user.id)
-        const isBotAdmins = citel.isGroup ? groupAdmins.includes(botNumber) : false;
+        const isBotAdmin = citel.isGroup ? groupAdmins.includes(botNumber) : false;
     
         if (!isAdmins) return citel.reply("❌ This command is only for admins.");
         if (!isBotAdmin) return citel.reply('I need admin rights to perform this action.');
@@ -49,8 +49,15 @@ cmd(
         category: 'group',
         filename: __filename,
     },
-    async (Void, citel, text, { isAdmin, isBotAdmin }) => {
-        if (!isAdmin) return citel.reply('This command can only be used by group admins.');
+    async (Void, citel, text) => {
+        if (!citel.isGroup) return citel.reply(tlang().group);
+
+        const groupAdmins = await getAdmin(Void, citel);
+        const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
+        const botNumber = await Void.decodeJid(Void.user.id)
+        const isBotAdmin = citel.isGroup ? groupAdmins.includes(botNumber) : false;
+    
+        if (!isAdmins) return citel.reply("❌ This command is only for admins.");
         if (!isBotAdmin) return citel.reply('I need admin rights to perform this action.');
 
         const groupId = citel.chat;
@@ -84,7 +91,14 @@ cmd(
         filename: __filename,
     },
     async (Void, citel, text, { isAdmin, isBotAdmin }) => {
-        if (!isAdmin) return citel.reply('This command can only be used by group admins.');
+        if (!citel.isGroup) return citel.reply(tlang().group);
+
+        const groupAdmins = await getAdmin(Void, citel);
+        const isAdmins = citel.isGroup ? groupAdmins.includes(citel.sender) : false;
+        const botNumber = await Void.decodeJid(Void.user.id)
+        const isBotAdmin = citel.isGroup ? groupAdmins.includes(botNumber) : false;
+    
+        if (!isAdmins) return citel.reply("❌ This command is only for admins.");
         if (!isBotAdmin) return citel.reply('I need admin rights to perform this action.');
 
         const groupId = citel.chat;
